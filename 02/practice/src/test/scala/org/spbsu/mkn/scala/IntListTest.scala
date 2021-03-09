@@ -1,7 +1,7 @@
 package org.spbsu.mkn.scala
 
 import org.scalatest.funsuite.AnyFunSuite
-import org.spbsu.mkn.scala.IntList.{fromSeq, size, sum}
+import org.spbsu.mkn.scala.IntList.{IntNil, fromSeq, size, sum}
 
 class IntListTest extends AnyFunSuite {
   test("head") {
