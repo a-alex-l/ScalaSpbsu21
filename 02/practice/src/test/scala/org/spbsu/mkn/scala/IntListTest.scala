@@ -1,7 +1,7 @@
 package org.spbsu.mkn.scala
 
 import org.scalatest.funsuite.AnyFunSuite
-import org.spbsu.mkn.scala.IntList.{IntNil, fromSeq, size, sum}
+import org.spbsu.mkn.scala.IntList.{fromSeq, size, sum}
 
 class IntListTest extends AnyFunSuite {
   test("head") {
@@ -11,37 +11,37 @@ class IntListTest extends AnyFunSuite {
   }
 
   test("tail") {
-    assert(fromSeq(Seq(1,2,3)).tail.equals(fromSeq(Seq(2,3))))
-    assert(fromSeq(Seq(1)).tail == IntNil)
+    assert(fromSeq(Seq(1,2,3)).tail == fromSeq(Seq(2,3)))
+    assert(fromSeq(Seq(1)).tail == IntNil())
   }
 
   test("drop") {
-    assert(fromSeq(Seq(1,2,3)).drop(0).equals(fromSeq(Seq(1,2,3))))
-    assert(fromSeq(Seq(1,2,3)).drop(2).equals(fromSeq(Seq(3))))
-    assert(fromSeq(Seq(1,2,3)).drop(3) == IntNil)
+    assert(fromSeq(Seq(1,2,3)).drop(0) == fromSeq(Seq(1,2,3)))
+    assert(fromSeq(Seq(1,2,3)).drop(2) == fromSeq(Seq(3)))
+    assert(fromSeq(Seq(1,2,3)).drop(3) == IntNil())
     assertThrows[UnsupportedOperationException](fromSeq(Seq(1,2,3)).drop(10))
   }
 
   test("take") {
-    assert(fromSeq(Seq(1,2,3)).take(0) == IntNil)
-    assert(fromSeq(Seq(1,2,3)).take(2).equals(fromSeq(Seq(1,2))))
-    assert(fromSeq(Seq(1,2,3)).take(3).equals(fromSeq(Seq(1,2,3))))
+    assert(fromSeq(Seq(1,2,3)).take(0) == IntNil())
+    assert(fromSeq(Seq(1,2,3)).take(2) == fromSeq(Seq(1,2)))
+    assert(fromSeq(Seq(1,2,3)).take(3) == fromSeq(Seq(1,2,3)))
     assertThrows[UnsupportedOperationException](fromSeq(Seq(1,2,3)).take(10))
   }
 
   test("map") {
-    assert(IntNil.map(_ * 2) == IntNil)
-    assert(fromSeq(Seq(1,2,3)).map(_ * 2).equals(fromSeq(Seq(2,4,6))))
-    assert(fromSeq(Seq(1,2,3)).map(identity).equals(fromSeq(Seq(1,2,3))))
+    assert(IntNil().map(_ * 2) == IntNil())
+    assert(fromSeq(Seq(1,2,3)).map(_ * 2) == fromSeq(Seq(2,4,6)))
+    assert(fromSeq(Seq(1,2,3)).map(identity) == fromSeq(Seq(1,2,3)))
   }
 
   test("size") {
-    assert(size(IntNil) == 0)
+    assert(size(IntNil()) == 0)
     assert(size(fromSeq(Seq(1,2,3))) == 3)
   }
 
   test("sum") {
-    assertThrows[UnsupportedOperationException](sum(IntNil))
+    assertThrows[UnsupportedOperationException](sum(IntNil()))
     assert(sum(fromSeq(Seq(1,2,3))) == 6)
     assert(sum(fromSeq(Seq(1))) == 1)
   }
