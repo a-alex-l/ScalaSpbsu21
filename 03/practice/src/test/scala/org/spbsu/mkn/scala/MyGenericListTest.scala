@@ -1,12 +1,10 @@
 package org.spbsu.mkn.scala
 
 import org.scalatest.funsuite.AnyFunSuite
-import org.spbsu.mkn.scala.MyGenericList.{fromSeq, size, sum}
+import org.spbsu.mkn.scala.MyGenericList.{fromSeq, size, sum, sort}
 
 class MyGenericListTest extends AnyFunSuite {
 
-  // remove after implementing actual MyNil
-  object MyNil
 
   test("head") {
     assert(fromSeq(Seq(1,2,3)).head == 1)
@@ -34,7 +32,7 @@ class MyGenericListTest extends AnyFunSuite {
   }
 
   test("map") {
-    assert(MyNil.map(_ * 2) == MyNil)
+    assert(MyNil.asInstanceOf[MyGenericList[Int]].map(_ * 2) == MyNil)
     assert(fromSeq(Seq(1,2,3)).map(_ * 2) == fromSeq(Seq(2,4,6)))
     assert(fromSeq(Seq(1,2,3)).map(identity) == fromSeq(Seq(1,2,3)))
   }
@@ -48,6 +46,14 @@ class MyGenericListTest extends AnyFunSuite {
     assertThrows[UnsupportedOperationException](sum(MyNil))
     assert(sum(fromSeq(Seq(1,2,3))) == 6)
     assert(sum(fromSeq(Seq(1))) == 1)
+  }
+
+  test("sort") {
+    assert(sort[Int](MyNil) == MyNil)
+    assert(sort(fromSeq(Seq(1,2,3))) == fromSeq(Seq(1,2,3)))
+    assert(sort(fromSeq(Seq(1,3,2))) == fromSeq(Seq(1,2,3)))
+    assert(sort(fromSeq(Seq(1,3,2,0,-1))) == fromSeq(Seq(-1,0,1,2,3)))
+    assert(sort(fromSeq(Seq(1,3,2,0,-1.98))) == fromSeq(Seq(-1.98,0,1,2,3)))
   }
 
 }
